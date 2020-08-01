@@ -1,9 +1,10 @@
 Gem::Specification.new do |s|
   s.name = 'virginsuperhub'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = 'Turns the WiFi on or off on a Virgin Media Super Hub 2.'
   s.authors = ['James Robertson']
   s.files = Dir['lib/virginsuperhub.rb']
+  s.add_runtime_dependency('ferrumwizard', '~> 0.1', '>=0.1.2')  
   s.signing_key = '../privatekeys/virginsuperhub.pem'
   s.cert_chain  = ['gem-public_cert.pem']
   s.license = 'MIT'
