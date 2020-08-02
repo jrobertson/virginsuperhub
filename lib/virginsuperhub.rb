@@ -8,11 +8,13 @@ require 'ferrumwizard'
 
 class SuperHub2
   using ColouredText
+  
+  attr_reader :fw # helpful for development and debugging
 
   def initialize(host_ip='192.168.0.1', passwordx=nil, headless: true, 
                  password: passwordx, timeout: 10, debug: false, verbose: true)
     
-    @verbose = verbose
+    @headless, @verbose = headless, verbose
     puts "SuperHub2".highlight; puts if verbose
     
     @fw = FerrumWizard.new("http://#{host_ip}/VmLogin.asp", 
@@ -28,6 +30,18 @@ class SuperHub2
     puts 'logged in'.info if @verbose
     sleep 2
     self
+    
+  end
+  
+  def reboot()
+    
+    @fw.advanced.reboot.reboot   
+    puts 'rebooting ...'.info if @verbose
+    
+    sleep 2 unless @headless
+    
+    @fw.quit   
+    puts 'browser window closed'.info if @verbose
     
   end
 
@@ -46,7 +60,7 @@ class SuperHub2
   def logout()
     @fw.sign_out
     puts 'signed out'.info if @verbose
-    sleep 2
+    sleep 2 unless @headless
     @fw.quit
   end
 
